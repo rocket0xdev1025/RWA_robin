@@ -1,4 +1,4 @@
-/* $BULLHOOD — interactions */
+/* $uhood — .hood domain marketplace interactions */
 
 (function () {
   "use strict";

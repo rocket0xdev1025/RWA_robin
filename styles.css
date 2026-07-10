@@ -1,5 +1,5 @@
 /* ============================================
-   $BULLHOOD — Forest Narrative Meme Site
+   $uhood — Premier .hood Domain Marketplace
    ============================================ */
 
 :root {
@@ -526,13 +526,18 @@ code {
 
 .hero-tagline {
   font-family: var(--font-display);
-  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
   font-weight: 400;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--gold-soft);
-  max-width: 36ch;
+  max-width: 42ch;
   margin-bottom: 1.75rem;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+  line-height: 1.55;
+}
+
+.features-grid {
+  margin-bottom: 0;
 }
 
 .hero-ctas {
