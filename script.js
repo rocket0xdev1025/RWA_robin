@@ -1,4 +1,4 @@
-/* seedcoin — .hood domain marketplace interactions */
+/* seedcoin — Moonlit Canopy forest interactions */
 
 (function () {
   "use strict";
@@ -63,7 +63,6 @@
           if (copyLabel) copyLabel.textContent = "Copy";
         }, 1800);
       } catch {
-        // Fallback
         const range = document.createRange();
         range.selectNodeContents(caEl);
         const sel = window.getSelection();
@@ -74,19 +73,19 @@
     });
   }
 
-  // Floating forest embers
+  // Amber + teal fireflies
   const embers = document.getElementById("embers");
   if (embers && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const count = window.innerWidth < 720 ? 18 : 32;
+    const count = window.innerWidth < 720 ? 20 : 36;
     for (let i = 0; i < count; i++) {
       const e = document.createElement("span");
-      e.className = "ember";
+      e.className = "ember" + (Math.random() > 0.45 ? " teal" : "");
       e.style.left = Math.random() * 100 + "%";
-      e.style.setProperty("--drift", (Math.random() * 80 - 40) + "px");
-      e.style.animationDuration = 8 + Math.random() * 14 + "s";
-      e.style.animationDelay = Math.random() * 12 + "s";
-      e.style.width = e.style.height = 2 + Math.random() * 3 + "px";
-      e.style.opacity = String(0.3 + Math.random() * 0.5);
+      e.style.setProperty("--drift", Math.random() * 100 - 50 + "px");
+      e.style.animationDuration = 9 + Math.random() * 16 + "s";
+      e.style.animationDelay = Math.random() * 14 + "s";
+      e.style.width = e.style.height = 2 + Math.random() * 3.5 + "px";
+      e.style.opacity = String(0.35 + Math.random() * 0.55);
       embers.appendChild(e);
     }
   }
@@ -106,13 +105,38 @@
     );
   }
 
+  // Soft moon parallax
+  const moon = document.querySelector(".moon");
+  if (moon && window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener(
+      "scroll",
+      () => {
+        const y = window.scrollY;
+        if (y < window.innerHeight * 1.5) {
+          moon.style.transform = `translateY(${y * 0.12}px) scale(1)`;
+        }
+      },
+      { passive: true }
+    );
+  }
+
   // Flying leaves only when hovering images
   const leafTrail = document.getElementById("leafTrail");
   const finePointer = window.matchMedia("(pointer: fine)").matches;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (leafTrail && finePointer && !reduceMotion) {
-    const LEAF_COLORS = ["#3d8c4a", "#5cb85c", "#2d6a3e", "#7dff9a", "#c9a227", "#8fbc6a", "#1f9d4d"];
+    // Teal moss + amber autumn leaf palette for moonlit grove
+    const LEAF_COLORS = [
+      "#2a9d8f",
+      "#3ecfbf",
+      "#1a6b62",
+      "#7ee8d8",
+      "#e8b86d",
+      "#c4a35a",
+      "#2d5a45",
+      "#5a8f7b",
+    ];
     const MAX_ACTIVE = 56;
     let lastSpawn = 0;
     let lastX = 0;
@@ -123,8 +147,8 @@
     const leafSvg = (color) =>
       `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path fill="${color}" d="M12 2C12 2 5 8.2 5 14.2c0 3.4 2.6 6.3 7 7.8 4.4-1.5 7-4.4 7-7.8C19 8.2 12 2 12 2z"/>
-        <path fill="none" stroke="rgba(5,20,10,0.45)" stroke-width="1.2" stroke-linecap="round" d="M12 4.5v15.5"/>
-        <path fill="none" stroke="rgba(5,20,10,0.3)" stroke-width="0.9" stroke-linecap="round" d="M12 9c-2 1.2-3.2 2.8-3.5 4.5M12 11c2 1 3.2 2.5 3.5 4"/>
+        <path fill="none" stroke="rgba(4,16,20,0.45)" stroke-width="1.2" stroke-linecap="round" d="M12 4.5v15.5"/>
+        <path fill="none" stroke="rgba(4,16,20,0.3)" stroke-width="0.9" stroke-linecap="round" d="M12 9c-2 1.2-3.2 2.8-3.5 4.5M12 11c2 1 3.2 2.5 3.5 4"/>
       </svg>`;
 
     function spawnLeaf(x, y, vx, vy) {
@@ -172,7 +196,6 @@
       return el instanceof HTMLImageElement;
     }
 
-    // Burst when first entering an image
     document.addEventListener(
       "mouseover",
       (e) => {
@@ -206,7 +229,6 @@
       { passive: true }
     );
 
-    // Continuous leaves while moving over an image
     document.addEventListener(
       "mousemove",
       (e) => {
@@ -242,5 +264,23 @@
       },
       { passive: true }
     );
+  }
+
+  // Load Twitter widgets when timeline is near viewport (if script already present, re-scan)
+  const twitterFrame = document.querySelector(".twitter-frame");
+  if (twitterFrame && "IntersectionObserver" in window) {
+    const twIo = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          if (window.twttr && window.twttr.widgets) {
+            window.twttr.widgets.load(twitterFrame);
+          }
+          twIo.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "200px" }
+    );
+    twIo.observe(twitterFrame);
   }
 })();
