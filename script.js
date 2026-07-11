@@ -1,4 +1,4 @@
-/* $uhood — .hood domain marketplace interactions */
+/* seedcoin — .hood domain marketplace interactions */
 
 (function () {
   "use strict";
